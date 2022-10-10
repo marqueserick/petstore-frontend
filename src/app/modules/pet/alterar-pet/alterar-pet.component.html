@@ -1,0 +1,25 @@
+<section class="container">
+  <h3 class="secao-titulo">Alterar Pet</h3>
+  <app-corpo-pet
+    *ngIf="pet != null; else petErro"
+    [acao]="'ALTERAR'"
+    [petAlterar]="pet"
+  ></app-corpo-pet>
+</section>
+
+<ng-template #petErro>
+  <div class="pets-conteudo">
+    <div class="pet-erro">
+      <h4>Ops... não encontramos esse pet</h4>
+      <img
+        width="300"
+        src="https://i.pinimg.com/736x/dc/c6/6a/dcc66a7ef2f74e81da4fdf3f1b52ab81.jpg"
+      />
+    </div>
+    <div class="footer">
+      <button type="button" class="bt" (click)="voltar()">
+        Voltar
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,78 @@
+<form [formGroup]="formPet" class="formulario">
+  <div class="pets-conteudo">
+    <div *ngIf="acao == 'ALTERAR'">
+      <label class="no-label">Id: </label>
+      <input type="text" name="id" id="id" formControlName="id" />
+    </div>
+    <div>
+      <label class="no-label">Nome: </label>
+      <input type="text" name="nome" id="nome" formControlName="nome" oninput="this.value = this.value.toUpperCase()" />
+    </div>
+    <div>
+      <label class="no-label">Status: </label>
+      <input
+        type="text"
+        [disabled]="formPet.status == 'DISPONIVEL'"
+        name="status"
+        id="status"
+        formControlName="status"
+      />
+    </div>
+    <div>
+      <label class="no-label">Categoria: </label>
+      <input
+        *ngIf="acao == 'ALTERAR'"
+        type="text"
+        name="categoria"
+        id="categoria"
+        formControlName="categoria"
+      />
+      <select
+        *ngIf="acao == 'ADICIONAR'"
+        name="categoria"
+        id="categoria"
+        formControlName="categoria"
+        required="true"
+      >
+        <option *ngFor="let categoria of categorias" [ngValue]="categoria">
+          {{ categoria.nome }}
+        </option>
+      </select>
+    </div>
+    <div class="footer">
+      <button type="button" class="bt" [disabled]="formPet.invalid" (click)="salvar()">
+        Salvar
+      </button>
+      <button type="button" class="bt" (click)="abrirModalCancelar(modalCancelarTela)">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</form>
+
+<ng-template #modalCancelarTela let-cancelarTela>
+  <div class="modal-header">
+    <h5 class="modal-title">Cancelar?</h5>
+  </div>
+  <div>
+    <div class="modal-body">
+      <p class="m-4 text-center">Tem certeza que deseja cancelar?</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="text"
+        class="bt bt-p bt-o-default"
+        (click)="cancelarTela.close(); listarPets()"
+      >
+        Sim
+      </button>
+      <button
+        type="text"
+        class="bt bt-p bt-primario"
+        (click)="cancelarTela.close()"
+      >
+        <i class="fas fa-eraser"></i> Não
+      </button>
+    </div>
+  </div>
+</ng-template>
